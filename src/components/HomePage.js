@@ -23,15 +23,18 @@ class HomePage extends Component {
       this.toggleEdit = this.toggleEdit.bind(this);
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleNewProductRequest = this.handleNewProductRequest.bind(this);
+      this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   toggleEdit() {
-      this.setState({editSaleItem: !this.state.editSaleItem});
+      const editSaleItem = !this.state.editSaleItem;
+      this.setState({editSaleItem});
   }
 
   handleInputChange(event) {
       console.log('THIS VALUE', event.target.value);
-      this.setState({ itemCurrentlyOnSale: event.target.value });
+      const itemCurrentlyOnSale = event.target.value;
+      this.setState({ itemCurrentlyOnSale });
   }
 
   handleNewProductRequest(newProduct) {
@@ -41,6 +44,10 @@ class HomePage extends Component {
     this.setState({productList});
 
   } 
+  onFormSubmit(newProduct) {
+    console.log('NEW PRODUCT', newProduct);
+    this.handleNewProductRequest(newProduct);
+  }
 
   render() {
     return (
@@ -56,7 +63,7 @@ class HomePage extends Component {
                         </div>
                     )
                 }
-                <AdminView productList={this.state.productList} handleNewProductRequest={this.handleNewProductRequest} />
+                <AdminView productList={this.state.productList} handleNewProductRequest={this.handleNewProductRequest} onFormSubmit={this.onFormSubmit}/>
             </div>
         </div>
     );

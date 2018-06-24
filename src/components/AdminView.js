@@ -1,38 +1,21 @@
 import React, {Component} from 'react';
 import ProductList from './ProductList.js';
+import ProductForm from './ProductForm.js';
 
 class AdminView extends Component {
     constructor() {
         super();
         this.state = {
-            newProduct: {
-
-            }
+            showProductForm: true
         };
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
-    onFormSubmit(event) {
-        event.preventDefault();
-        console.log('Form submitted!', event.target.productName);
-        this.props.handleNewProductRequest(this.state.newProduct);
-
-
-    }
-
-    handleChange(event) {
-        console.log('INPUT CHANGED', event.target.name);
-        const key = event.target.name;
-        const value = key == "price" ? parseInt(event.target.value) : event.target.value;
-        console.log('VALUE', value);
-        const newProduct = { ...this.state.newProduct };
-        newProduct[key] = value;
-        console.log(newProduct);
-        this.setState({newProduct})
-        console.log(this.state);
-
+    handleButtonClick() {
+        const showProductForm = !this.state.showProductForm;
+        this.setState({showProductForm});
     }
   render() {
+      const buttonText = this.state.showProductForm ? 'Hide' : 'Show Form';
     return (
         <div>
           <h1>Admin View</h1>
@@ -40,15 +23,8 @@ class AdminView extends Component {
           {this.props.productList && (
               <ProductList productList={this.props.productList} />
           )}
-          <h2>Create a New Product</h2>
-          <div>
-              <form onSubmit={this.onFormSubmit}>
-              <p>Product Name: <input type="text" name="productName" onChange={this.handleChange}/> </p>
-              <p>Description: <input type="text" name="description" onChange={this.handleChange} /> </p>
-              <p>Price: <input type="text" name="price" onChange={this.handleChange}/> </p>
-              <input type="submit" value="Submit New Product!" />
-              </form>
-          </div>
+          <button onClick={this.handleButtonClick}> {buttonText} </button>
+          {this.state.showProductForm && <ProductForm onFormSubmit={this.props.onFormSubmit} /> }
         </div>
     );
   }
