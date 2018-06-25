@@ -11,7 +11,7 @@ class ProductList extends Component {
             {
                 this.props.productList.map( (object, index) => {
                     return (
-                        <ProductEntry {...object} key={index} />
+                        <ProductEntry {...object} key={index} deleteItem={this.props.deleteItem.bind(null, object, index)}/>
                     );
                 })
             }

@@ -21,7 +21,7 @@ class AdminView extends Component {
           <h1>Admin View</h1>
           <h2>Products</h2>
           {this.props.productList && (
-              <ProductList productList={this.props.productList} />
+              <ProductList productList={this.props.productList} deleteItem={this.props.deleteItem} />
           )}
           <button onClick={this.handleButtonClick}> {buttonText} </button>
           {this.state.showProductForm && <ProductForm onFormSubmit={this.props.onFormSubmit} /> }

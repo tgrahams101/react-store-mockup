@@ -24,6 +24,7 @@ class HomePage extends Component {
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleNewProductRequest = this.handleNewProductRequest.bind(this);
       this.onFormSubmit = this.onFormSubmit.bind(this);
+      this.deleteItem = this.deleteItem.bind(this);
   }
 
   toggleEdit() {
@@ -49,6 +50,16 @@ class HomePage extends Component {
     this.handleNewProductRequest(newProduct);
   }
 
+  deleteItem(object, index) {
+    console.log('TRYING TO DELETE ITEM',this, object, index);
+    const indexToDelete = this.state.productList.indexOf(object);
+    console.log(indexToDelete);
+    const productList = [...this.state.productList];
+    productList.splice(indexToDelete);
+    this.setState({productList});
+    
+  }
+
   render() {
     return (
         <div>
@@ -63,7 +74,7 @@ class HomePage extends Component {
                         </div>
                     )
                 }
-                <AdminView productList={this.state.productList} handleNewProductRequest={this.handleNewProductRequest} onFormSubmit={this.onFormSubmit}/>
+                <AdminView productList={this.state.productList} handleNewProductRequest={this.handleNewProductRequest} onFormSubmit={this.onFormSubmit} deleteItem={this.deleteItem}/>
             </div>
         </div>
     );
